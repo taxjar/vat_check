@@ -41,7 +41,9 @@ describe TaxJarVat::Format do
   ]
 
   invalid_vat_ids = [
-    # TODO
+    'XX',
+    'XX9999999999',
+    '123456789'
   ]
 
   context "valid VAT ID:" do
