@@ -2,10 +2,12 @@
 
 ### Build and use ###
 
+```
 gem build taxjarvat.spec
 gem install ./taxjarvat-0.0.1.gem
 irb
 require 'taxjarvat'
+```
 
 ### Example responses ###
 ```
