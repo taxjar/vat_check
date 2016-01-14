@@ -13,7 +13,7 @@ TaxJarVat.validate('VATID')
 
 ### Example responses ###
 
-Response if the service is available and the VAT ID is formatted correctly
+Response if the service is available and the VAT ID is formatted correctly:
 ```
 TaxJarVat.validate('GB333289454')
 {
@@ -28,7 +28,8 @@ TaxJarVat.validate('GB333289454')
 }
 ```
 
-Response if the service is available, the VAT ID is formatted correctly, but the VAT ID is not registered to a business
+
+Response if the service is available, the VAT ID is formatted correctly, but the VAT ID is not registered to a business:
 ```
 TaxJarVat.validate('GB999999999')
 {
@@ -42,7 +43,8 @@ TaxJarVat.validate('GB999999999')
 }
 ```
 
-Response if the VAT ID is not formatted correctly
+
+Response if the VAT ID is not formatted correctly:
 ```
 TaxJarVat.validate('XX999999999')
 {
@@ -50,7 +52,8 @@ TaxJarVat.validate('XX999999999')
 }
 ```
 
-Response if the VAT ID is formatted correctly but the service is unavailable
+
+Response if the VAT ID is formatted correctly but the service is unavailable:
 ```
 TaxJarVat.validate('GB333289454')
 {
@@ -59,7 +62,8 @@ TaxJarVat.validate('GB333289454')
 }
 ```
 
-Response if VAT ID is formatted correctly but the service timed out
+
+Response if VAT ID is formatted correctly but the service timed out:
 ```
 TaxJarVat.validate('GB333289454')
 {
