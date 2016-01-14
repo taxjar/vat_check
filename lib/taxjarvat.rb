@@ -7,7 +7,7 @@ class TaxJarVat
     begin
       vat = TaxJarVat::Utility.normalize(raw)
       country_code, id = TaxJarVat::Utility.split(vat)
-      response[:validation] = TaxJarVat::Requests.validate(country_code, id)
+      response.merge!(TaxJarVat::Requests.validate(country_code, id))
     rescue Savon::SOAPFault => e
       if !!(e.message =~ /MS_UNAVAILABLE/)
         response[:validation] = 'Service unavailable'
