@@ -8,7 +8,7 @@ irb
 require 'taxjarvat'
 
 ### Example responses ###
-
+```
 TaxJarVat.validate('GB333289454')
 {
   :format_valid=>true, 
@@ -20,7 +20,9 @@ TaxJarVat.validate('GB333289454')
   :address=>"FAO ALEX FITZPATRICK\nBBC GROUP VAT MANAGER\nTHE LIGHT HOUSE (1ST FLOOR)\nMEDIA VILLAGE, 201 WOOD LANE\nLONDON\nW12 7TQ", 
   :@xmlns=>"urn:ec.europa.eu:taxud:vies:services:checkVat:types"
 }
+```
 
+```
 TaxJarVat.validate('GB999999999')
 {
   :format_valid=>true, 
@@ -31,20 +33,27 @@ TaxJarVat.validate('GB999999999')
   :address=>"---", 
   :@xmlns=>"urn:ec.europa.eu:taxud:vies:services:checkVat:types"
 }
+```
 
+```
 TaxJarVat.validate('XX999999999')
 {
   :format_valid=>false
 }
+```
 
+```
 TaxJarVat.validate('GB333289454')
 {
   :format_valid=>true,
   :valid=>'Service unavailable'
 }
+```
 
+```
 TaxJarVat.validate('GB333289454')
 {
   :format_valid=>true,
   :valid=>'Service timed out'
 }
+```
