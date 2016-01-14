@@ -12,12 +12,12 @@ class TaxJarVat
       end
     rescue Savon::SOAPFault => e
       if !!(e.message =~ /MS_UNAVAILABLE/)
-        response[:validation] = 'Service unavailable'
+        response[:valid] = 'Service unavailable'
       else
-        response[:validation] = "Unknown error: #{e.message}"
+        response[:valid] = "Unknown error: #{e.message}"
       end
     rescue Timeout::Error
-      response[:validation] = 'Service timed out'
+      response[:valid] = 'Service timed out'
     end
 
     response

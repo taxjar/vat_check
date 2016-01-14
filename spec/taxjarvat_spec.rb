@@ -5,7 +5,7 @@ describe TaxJarVat do
   context 'service unavailable', vcr: { cassette_name: 'requests/validate_ms_unavailable_error', record: :none } do
     it 'gracefully handles the exception' do
       response = TaxJarVat.validate('GB333289454')
-      expect(response[:validation]).to eq('Service unavailable')
+      expect(response[:valid]).to eq('Service unavailable')
     end
 
     it 'still validates the format' do
@@ -19,7 +19,7 @@ describe TaxJarVat do
 
     it 'gracefully handles the exception' do
       response = TaxJarVat.validate('GB333289454')
-      expect(response[:validation]).to eq('Service timed out')
+      expect(response[:valid]).to eq('Service timed out')
     end
 
     it 'still validates the format' do
