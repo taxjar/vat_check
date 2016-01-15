@@ -7,13 +7,13 @@ gem build vat_check.gemspec
 gem install ./vat_check-#.#.#.gem
 
 irb
-require 'taxjarvat'
+require 'vat_check'
 var = VatCheck.new('VATID')
 ```
 
 ### Example responses ###
 
-Response for lookup if the service is available and the VAT ID is formatted correctly:
+VIES is available, the VAT is formatted correctly, and the VAT is registered to a business
 ```
 vat = VatCheck.new('GB333289454')
 vat.regex # true
@@ -25,7 +25,7 @@ vat.exists? # true
 ```
 
 
-Response for lookup if the service is available, the VAT ID is formatted correctly, but the VAT ID is not registered to a business:
+VIES is available, the VAT ID is formatted correctly, but the VAT ID is not registered to a business:
 ```
 vat = VatCheck.new('GB999999999')
 vat.regex # true
@@ -37,7 +37,7 @@ vat.exists? # false
 ```
 
 
-Response for lookup if the VAT ID is not formatted correctly:
+VAT is not formatted correctly:
 ```
 vat = VatCheck.new('XX123456789')
 vat.regex # false
@@ -50,7 +50,7 @@ vat.exists? # false
 ```
 
 
-Response for lookup if the VAT ID is formatted correctly but the service is unavailable:
+VAT is formatted correctly but VIES is unavailable:
 ```
 vat = VatCheck.new('GB333289454')
 vat.regex # true
@@ -62,7 +62,7 @@ vat.exists? # false
 ```
 
 
-Response for lookup if VAT ID is formatted correctly but the service timed out:
+VAT is formatted correctly but VIES times out:
 ```
 vat = VatCheck.new('GB333289454')
 vat.regex # true
