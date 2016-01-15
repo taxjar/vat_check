@@ -7,7 +7,7 @@ vat = VatCheck.new('GB333289454')
 puts 'Legit' if vat.valid?
 ```
 
-That's it. VatCheck first performs a regex validation. If it passes, it attempts to verify on VIES. Sometimes it's up, sometimes it's down. When it's down `valid?` gracefully falls back to regex.
+That's it. VatCheck first performs a regex validation. If it passes, it attempts to verify on VIES. [Sometimes it's up, sometimes it's down](http://ec.europa.eu/taxation_customs/vies/help.html). When it's down `valid?` gracefully falls back to regex.
 
 ## Getting Started
 
@@ -32,8 +32,9 @@ vat = VatCheck.new('VATIN')
 
 ## Examples
 
-VIES is available, the VAT is formatted correctly, and the VAT is registered to a business
-```
+VIES is available, the VAT is formatted correctly, and the VAT is registered to a business:
+
+```ruby
 vat = VatCheck.new('GB333289454')
 vat.regex # true
 vat.vies_available # true
@@ -43,9 +44,9 @@ vat.valid? # true
 vat.exists? # true
 ```
 
-
 VIES is available, the VAT ID is formatted correctly, but the VAT ID is not registered to a business:
-```
+
+```ruby
 vat = VatCheck.new('GB999999999')
 vat.regex # true
 vat.vies_available # true
@@ -55,9 +56,9 @@ vat.valid? # false
 vat.exists? # false
 ```
 
-
 VAT is not formatted correctly:
-```
+
+```ruby
 vat = VatCheck.new('XX123456789')
 vat.regex # false
 vat.vies # false
@@ -65,12 +66,11 @@ vat.vies_available # false
 vat.response # {}
 vat.valid? # false
 vat.exists? # false
-
 ```
-
 
 VAT is formatted correctly but VIES is unavailable:
-```
+
+```ruby
 vat = VatCheck.new('GB333289454')
 vat.regex # true
 vat.vies_available # false
@@ -80,9 +80,9 @@ vat.valid? # true
 vat.exists? # false
 ```
 
-
 VAT is formatted correctly but VIES times out:
-```
+
+```ruby
 vat = VatCheck.new('GB333289454')
 vat.regex # true
 vat.vies_available # false
