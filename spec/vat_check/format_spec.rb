@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe TaxJarVat::Format do
+describe VatCheck::Format do
   valid_vat_ids = [
     'ATU99999999',        # AT-Austria
     'BE0999999999',       # BE-Belgium
@@ -49,7 +49,7 @@ describe TaxJarVat::Format do
   context "valid VAT ID:" do
     valid_vat_ids.each do |id|
       it "#{id} validates" do
-        expect(TaxJarVat::Format.valid?(id)).to be_truthy
+        expect(VatCheck::Format.valid?(id)).to be_truthy
       end
     end
   end
@@ -57,7 +57,7 @@ describe TaxJarVat::Format do
   context "invalid VAD ID: " do
     invalid_vat_ids.each do |id|
       it "#{id} does not validate" do
-        expect(TaxJarVat::Format.valid?(id)).to be_falsey
+        expect(VatCheck::Format.valid?(id)).to be_falsey
       end
     end
   end

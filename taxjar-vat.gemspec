@@ -1,5 +1,5 @@
 Gem::Specification.new do |s|
-  s.name          = 'taxjar-vat'
+  s.name          = 'vat_check'
   s.version       = '0.0.5'
   s.date          = '2016-01-11'
   s.licenses      = ['MIT']
@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description   = 'A gem by TaxJar that can be used to validate VAT IDs'
   s.authors       = ['TaxJar']
   s.email         = 'support@taxjar.com'
-  s.files         = ['lib/taxjar-vat.rb', 'lib/taxjar-vat/format.rb', 'lib/taxjar-vat/requests.rb', 'lib/taxjar-vat/utility.rb']
+  s.files         = ['lib/vat_check.rb', 'lib/vat_check/format.rb', 'lib/vat_check/requests.rb', 'lib/vat_check/utility.rb']
   s.require_paths = ['lib']
   s.homepage      = 'http://taxjar.com'
   s.required_ruby_version = '>= 2.1.6'

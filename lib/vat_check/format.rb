@@ -1,9 +1,9 @@
-class TaxJarVat
+class VatCheck
   module Format
 
     def self.valid?(vat)
-      normalized = TaxJarVat::Utility.normalize(vat)
-      country_code, id = TaxJarVat::Utility.split(vat)
+      normalized = VatCheck::Utility.normalize(vat)
+      country_code, id = VatCheck::Utility.split(vat)
       !!(self.patterns[country_code] && self.patterns[country_code] =~ normalized)
     end
 

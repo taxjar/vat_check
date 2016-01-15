@@ -1,10 +1,10 @@
 require 'savon'
 
-class TaxJarVat
+class VatCheck
   module Request
-    def self.exists(vat)
+    def self.lookup(vat)
       client = Savon.client(wsdl: 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl', log: false, log_level: :debug, pretty_print_xml: false)
-      country_code, vat_number = TaxJarVat::Utility.split(vat)
+      country_code, vat_number = VatCheck::Utility.split(vat)
       begin
         response = client.call(:check_vat, message: {country_code: country_code, vat_number: vat_number}, message_tag: :checkVat)
         response.to_hash[:check_vat_response].reject { |key| key == :@xmlns }
