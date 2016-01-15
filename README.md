@@ -20,7 +20,8 @@ Response for lookup if the service is available and the VAT ID is formatted corr
 TaxJarVat.lookup('GB333289454')
 {
   :valid=>true, 
-  :exists=>{
+  :exists=>true, 
+  :response=>{
     :country_code=>"GB", 
     :vat_number=>"333289454", 
     :request_date=>#<Date: 2016-01-15 ((2457403j,0s,0n),+0s,2299161j)>, 
@@ -37,7 +38,15 @@ Response for lookup if the service is available, the VAT ID is formatted correct
 TaxJarVat.lookup('GB999999999')
 {
   :valid=>true, 
-  :exists=>false 
+  :exists=>false, 
+  :response=>{
+    :country_code=>"GB", 
+    :vat_number=>"999999999", 
+    :request_date=>#<Date: 2016-01-15 ((2457403j,0s,0n),+0s,2299161j)>, 
+    :valid=>false, 
+    :name=>"---", 
+    :address=>"---"
+  }
 }
 ```
 
@@ -57,7 +66,10 @@ Response for lookup if the VAT ID is formatted correctly but the service is unav
 TaxJarVat.lookup('GB333289454')
 {
   :valid=>true,
-  :exists=>'Service unavailable'
+  :exists=>false,
+  :response=>{
+     :error=>'Service unavailable'
+  }
 }
 ```
 
@@ -67,10 +79,13 @@ Response for lookup if VAT ID is formatted correctly but the service timed out:
 TaxJarVat.lookup('GB333289454')
 {
   :valid=>true,
-  :exists=>'Service timed out'
+  :exists=>false,
+  :response=>{
+     :error=>'Service timed out'
+  }
 }
 ```
 
-TaxJarVat.exists?('VATID') will return true, false, or an error message if VAT lookup service returns a valid flag.
+TaxJarVat.exists?('VATID') will return true of VAT lookup service returns a valid response.
 
 TaxJarVat.valid?('VATID') will return true or false if the the ID passes the TaxJarVat::Format validation.
