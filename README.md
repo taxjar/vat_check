@@ -8,66 +8,69 @@ gem install ./taxjarvat-0.0.1.gem
 
 irb
 require 'taxjarvat'
-TaxJarVat.validate('VATID')
+TaxJarVat.lookup('VATID')
+TaxJarVat.valid?('VATID')
+TaxJarVat.exists?('VATID')
 ```
 
 ### Example responses ###
 
-Response if the service is available and the VAT ID is formatted correctly:
+Response for lookup if the service is available and the VAT ID is formatted correctly:
 ```
-TaxJarVat.validate('GB333289454')
+TaxJarVat.lookup('GB333289454')
 {
-  :format_valid=>true, 
-  :country_code=>"GB", 
-  :vat_number=>"333289454", 
-  :request_date=>#<Date: 2016-01-14 ((2457402j,0s,0n),+0s,2299161j)>, 
   :valid=>true, 
-  :name=>"BRITISH BROADCASTING CORPORATION", 
-  :address=>"FAO ALEX FITZPATRICK\nBBC GROUP VAT MANAGER\nTHE LIGHT HOUSE (1ST FLOOR)\nMEDIA VILLAGE, 201 WOOD LANE\nLONDON\nW12 7TQ", 
-  :@xmlns=>"urn:ec.europa.eu:taxud:vies:services:checkVat:types"
+  :exists=>{
+    :country_code=>"GB", 
+    :vat_number=>"333289454", 
+    :request_date=>#<Date: 2016-01-15 ((2457403j,0s,0n),+0s,2299161j)>, 
+    :valid=>true, 
+    :name=>"BRITISH BROADCASTING CORPORATION", 
+    :address=>"FAO ALEX FITZPATRICK\nBBC GROUP VAT MANAGER\nTHE LIGHT HOUSE (1ST FLOOR)\nMEDIA VILLAGE, 201 WOOD LANE\nLONDON\nW12 7TQ"
+  }
 }
 ```
 
 
-Response if the service is available, the VAT ID is formatted correctly, but the VAT ID is not registered to a business:
+Response for lookup if the service is available, the VAT ID is formatted correctly, but the VAT ID is not registered to a business:
 ```
-TaxJarVat.validate('GB999999999')
+TaxJarVat.lookup('GB999999999')
 {
-  :format_valid=>true, 
-  :country_code=>"GB", 
-  :vat_number=>"999999999", 
-  :request_date=>#<Date: 2016-01-14 ((2457402j,0s,0n),+0s,2299161j)>, 
-  :valid=>false, :name=>"---", 
-  :address=>"---", 
-  :@xmlns=>"urn:ec.europa.eu:taxud:vies:services:checkVat:types"
+  :valid=>true, 
+  :exists=>false 
 }
 ```
 
 
-Response if the VAT ID is not formatted correctly:
+Response for lookup if the VAT ID is not formatted correctly:
 ```
-TaxJarVat.validate('XX999999999')
+TaxJarVat.lookup('XX999999999')
 {
-  :format_valid=>false
+  :valid=>false,
+  :exists=>false
 }
 ```
 
 
-Response if the VAT ID is formatted correctly but the service is unavailable:
+Response for lookup if the VAT ID is formatted correctly but the service is unavailable:
 ```
-TaxJarVat.validate('GB333289454')
+TaxJarVat.lookup('GB333289454')
 {
-  :format_valid=>true,
-  :valid=>'Service unavailable'
+  :valid=>true,
+  :exists=>'Service unavailable'
 }
 ```
 
 
-Response if VAT ID is formatted correctly but the service timed out:
+Response for lookup if VAT ID is formatted correctly but the service timed out:
 ```
-TaxJarVat.validate('GB333289454')
+TaxJarVat.lookup('GB333289454')
 {
-  :format_valid=>true,
-  :valid=>'Service timed out'
+  :valid=>true,
+  :exists=>'Service timed out'
 }
 ```
+
+TaxJarVat.exists?('VATID') will return true, false, or an error message if VAT lookup service returns a valid flag.
+
+TaxJarVat.valid?('VATID') will return true or false if the the ID passes the TaxJarVat::Format validation.
