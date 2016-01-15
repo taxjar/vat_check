@@ -28,6 +28,6 @@ class TaxJarVat
   end
 end
 
-require 'taxjarvat/utility'
-require 'taxjarvat/format'
-require 'taxjarvat/requests'
+require 'taxjar-vat/utility'
+require 'taxjar-vat/format'
+require 'taxjar-vat/requests'

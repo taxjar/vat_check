@@ -2,7 +2,7 @@ require 'rspec'
 require 'byebug'
 require 'vcr'
 
-require File.dirname(__FILE__) + '/../lib/taxjarvat.rb'
+require File.dirname(__FILE__) + '/../lib/taxjar-vat.rb'
 
 RSpec.configure do |config|
   config.mock_with :mocha
