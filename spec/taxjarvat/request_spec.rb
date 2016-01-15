@@ -4,7 +4,7 @@ describe TaxJarVat::Request do
   context 'service unavailable', vcr: { cassette_name: 'requests/validate_ms_unavailable_error', record: :none } do
     it 'gracefully handles the exception' do
       response = TaxJarVat::Request.exists('GB333289454')
-      expect(response).to eq('Service unavailable')
+      expect(response).to eq({:error=>"Service unavailable"})
     end
   end
 
@@ -22,7 +22,11 @@ describe TaxJarVat::Request do
     it 'returns the expected response for a valid but unknown VAT', vcr: { cassette_name: 'requests/service_available_valid_but_unknown_vat', record: :none } do
       response = TaxJarVat::Request.exists('GB999999999')
 
-      expect(response).to be_falsey
+      expect(response[:country_code]).to eq('GB')
+      expect(response[:vat_number]).to eq('999999999')
+      expect(response[:valid]).to eq(false)
+      expect(response[:name]).to eq('---')
+      expect(response[:address]).to eq('---')
     end
 
     it 'does not include the xmlns field', vcr: { cassette_name: 'requests/service_available_valid_vat', record: :none } do
