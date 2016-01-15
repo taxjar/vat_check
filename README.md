@@ -1,17 +1,36 @@
-# TaxJar VAT Validation #
+# VatCheck
 
-### Build and use ###
+Need to verify VAT identification numbers in Ruby? VatCheck makes it easy and simple:
+
+```ruby
+vat = VatCheck.new('GB333289454')
+puts 'Legit' if vat.valid?
+```
+
+That's it. VatCheck first performs a regex validation. If it passes, it attempts to verify on VIES. Sometimes it's up, sometimes it's down. When it's down `valid?` gracefully falls back to regex.
+
+## Getting Started
+
+Install it via RubyGems in your terminal:
 
 ```
-gem build vat_check.gemspec
-gem install ./vat_check-#.#.#.gem
+gem install vat_check
+```
 
-irb
+Or in your Gemfile:
+
+```
+gem 'vat_check'
+```
+
+## Basic Usage
+
+```ruby
 require 'vat_check'
-var = VatCheck.new('VATID')
+vat = VatCheck.new('VATIN')
 ```
 
-### Example responses ###
+## Examples
 
 VIES is available, the VAT is formatted correctly, and the VAT is registered to a business
 ```
