@@ -1,4 +1,4 @@
-# VatCheck
+# VatCheck [![RubyGems](http://img.shields.io/gem/v/vat_check.svg?style=flat-square)](https://rubygems.org/gems/vat_check) [![Build Status](http://img.shields.io/travis/taxjar/vat_check.svg?style=flat-square)](https://travis-ci.org/taxjar/vat_check)
 
 Need to verify VAT identification numbers in Ruby? VatCheck makes it easy and simple:
 
