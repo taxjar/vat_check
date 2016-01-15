@@ -2,53 +2,61 @@ require 'spec_helper'
 
 describe TaxJarVat do
 
-  context 'service unavailable', vcr: { cassette_name: 'requests/validate_ms_unavailable_error', record: :none } do
-    it 'gracefully handles the exception' do
-      response = TaxJarVat.validate('GB333289454')
-      expect(response[:valid]).to eq('Service unavailable')
+  context 'lookup' do
+    context 'an invalid vat' do
+      it 'returns false for valid and exists' do
+        response = TaxJarVat.lookup('XX123456789')
+        expect(response[:valid]).to be_falsey
+        expect(response[:exists]).to be_falsey
+      end
     end
 
-    it 'still validates the format' do
-      response = TaxJarVat.validate('GB333289454')
-      expect(response[:format_valid]).to eq(true)
+    context 'a valid vat', vcr: { cassette_name: 'requests/service_available_valid_vat', record: :none } do
+      it 'returns tue for valid and the service response for exists' do
+        response = TaxJarVat.lookup('GB333289454')
+        exists = response[:exists]
+
+        expect(response[:valid]).to be_truthy
+        expect(exists[:country_code]).to eq('GB')
+        expect(exists[:vat_number]).to eq('333289454')
+        expect(exists[:valid]).to eq(true)
+        expect(exists[:name]).to eq('BRITISH BROADCASTING CORPORATION')
+        expect(exists[:address].gsub("\n", " ")).to eq('FAO ALEX FITZPATRICK BBC GROUP VAT MANAGER THE LIGHT HOUSE (1ST FLOOR) MEDIA VILLAGE, 201 WOOD LANE LONDON W12 7TQ')
+      end
+    end
+
+    context 'when service is unavailable and vat is valid', vcr: { cassette_name: 'requests/validate_ms_unavailable_error', record: :none } do
+      it 'returns true for valid and service down message for exists' do
+        response = TaxJarVat.lookup('GB333289454')
+        exists = response[:exists]
+
+        expect(response[:valid]).to be_truthy
+        expect(exists).to eq('Service unavailable')
+      end
     end
   end
 
-  context 'service times out' do
-    before { TaxJarVat::Requests.stubs(:validate).raises(Timeout::Error)}
-
-    it 'gracefully handles the exception' do
-      response = TaxJarVat.validate('GB333289454')
-      expect(response[:valid]).to eq('Service timed out')
+  context 'valid?' do
+    it 'returns false for an invalid id' do
+      expect(TaxJarVat.valid?('XX123456789')).to be_falsey
     end
 
-    it 'still validates the format' do
-      response = TaxJarVat.validate('GB333289454')
-      expect(response[:format_valid]).to eq(true)
+    it 'returns true for a valid vat' do
+      expect(TaxJarVat.valid?('GB333289454')).to be_truthy
     end
   end
 
-  context 'service is available' do
-    it 'returns the expected information with a valid VAT', vcr: { cassette_name: 'requests/service_available_valid_vat', record: :none } do
-      response = TaxJarVat.validate('GB333289454')
-      expect(response[:format_valid]).to eq(true)
-
-      expect(response[:country_code]).to eq('GB')
-      expect(response[:vat_number]).to eq('333289454')
-      expect(response[:valid]).to eq(true)
-      expect(response[:name]).to eq('BRITISH BROADCASTING CORPORATION')
-      expect(response[:address].gsub("\n", " ")).to eq('FAO ALEX FITZPATRICK BBC GROUP VAT MANAGER THE LIGHT HOUSE (1ST FLOOR) MEDIA VILLAGE, 201 WOOD LANE LONDON W12 7TQ')
+  context 'exists?' do
+    it 'returns false for an invalid vat' do
+      expect(TaxJarVat.exists?('XX123456789')).to be_falsey
     end
 
-    it 'returns the expected response for a valid but unknown VAT', vcr: { cassette_name: 'requests/service_available_valid_but_unknown_vat', record: :none } do
-      response = TaxJarVat.validate('GB999999999')
-      expect(response[:format_valid]).to eq(true)
+    it 'returns true for a valid vat when the service is available', vcr: { cassette_name: 'requests/service_available_valid_vat', record: :none } do
+      expect(TaxJarVat.exists?('GB333289454')).to be_truthy
+    end
 
-      expect(response[:country_code]).to eq('GB')
-      expect(response[:vat_number]).to eq('999999999')
-      expect(response[:valid]).to eq(false)
-      expect(response[:name]).to eq('---')
-      expect(response[:address]).to eq('---')
+    it 'returns an error message if the vat is valid but the service is down', vcr: { cassette_name: 'requests/validate_ms_unavailable_error', record: :none } do
+      expect(TaxJarVat.exists?('GB333289454')).to eq('Service unavailable')
     end
   end
 end

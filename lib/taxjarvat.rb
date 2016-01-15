@@ -1,28 +1,25 @@
 class TaxJarVat
 
-  def self.validate(raw)
-    response = {}
-    response[:format_valid] = TaxJarVat::Format.valid?(raw)
-
-    begin
-      if response[:format_valid]
-        vat = TaxJarVat::Utility.normalize(raw)
-        country_code, id = TaxJarVat::Utility.split(vat)
-        response.merge!(TaxJarVat::Requests.validate(country_code, id))
-      end
-    rescue Savon::SOAPFault => e
-      if !!(e.message =~ /MS_UNAVAILABLE/)
-        response[:valid] = 'Service unavailable'
-      else
-        response[:valid] = "Unknown error: #{e.message}"
-      end
-    rescue Timeout::Error
-      response[:valid] = 'Service timed out'
-    end
-
-    response
+  def self.lookup(vat)
+    valid = TaxJarVat::Format.valid?(vat)
+    {
+      valid: valid,
+      exists: valid ? TaxJarVat::Request.exists(vat) : false
+    }
   end
 
+  def self.valid?(vat)
+    TaxJarVat::Format.valid?(vat)
+  end
+
+  def self.exists?(vat)
+    if TaxJarVat::Format.valid?(vat)
+      response = TaxJarVat::Request.exists(vat)
+      return response.is_a?(Hash) ? response[:valid] : response
+    end
+
+    return false
+  end
 end
 
 require 'taxjarvat/utility'
