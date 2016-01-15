@@ -25,6 +25,14 @@ describe TaxJarVat do
       end
     end
 
+    context 'a valid but unkown vat', vcr: { cassette_name: 'requests/service_available_valid_but_unknown_vat', record: :none } do
+      it 'returns true for valid and false for exists' do
+        response = TaxJarVat.lookup('GB999999999')
+        expect(response[:valid]).to be_truthy
+        expect(response[:exists]).to be_falsey
+      end
+    end
+
     context 'when service is unavailable and vat is valid', vcr: { cassette_name: 'requests/validate_ms_unavailable_error', record: :none } do
       it 'returns true for valid and service down message for exists' do
         response = TaxJarVat.lookup('GB333289454')

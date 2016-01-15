@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'taxjarvat'
-  s.version       = '0.0.1'
+  s.version       = '0.0.4'
   s.date          = '2016-01-11'
   s.licenses      = ['MIT']
   s.summary       = 'Validate VAT IDs'

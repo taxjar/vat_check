@@ -7,7 +7,9 @@ class TaxJarVat
       country_code, vat_number = TaxJarVat::Utility.split(vat)
       begin
         response = client.call(:check_vat, message: {country_code: country_code, vat_number: vat_number}, message_tag: :checkVat)
-        return response.to_hash[:check_vat_response]
+        response = response.to_hash[:check_vat_response].reject { |key| key == :@xmlns }
+
+        return response[:valid] ? response : false
       rescue Savon::SOAPFault => e
         if !!(e.message =~ /MS_UNAVAILABLE/)
           return 'Service unavailable'

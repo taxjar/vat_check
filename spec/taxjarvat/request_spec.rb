@@ -22,11 +22,12 @@ describe TaxJarVat::Request do
     it 'returns the expected response for a valid but unknown VAT', vcr: { cassette_name: 'requests/service_available_valid_but_unknown_vat', record: :none } do
       response = TaxJarVat::Request.exists('GB999999999')
 
-      expect(response[:country_code]).to eq('GB')
-      expect(response[:vat_number]).to eq('999999999')
-      expect(response[:valid]).to eq(false)
-      expect(response[:name]).to eq('---')
-      expect(response[:address]).to eq('---')
+      expect(response).to be_falsey
+    end
+
+    it 'does not include the xmlns field', vcr: { cassette_name: 'requests/service_available_valid_vat', record: :none } do
+      response = TaxJarVat::Request.exists('GB333289454')
+      expect(response).to_not have_key(:@xmlns)
     end
   end
 end
