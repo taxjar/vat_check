@@ -32,6 +32,40 @@ require 'vat_check'
 vat = VatCheck.new('VATIN')
 ```
 
+This returns some nifty helper methods and attributes for all your VAT needs:
+
+```ruby
+vat.regex # True if regex validated
+vat.vies # True if VIES response is valid
+vat.vies_available # True if VIES available
+vat.response # Hash if VIES available
+
+vat.valid? # True if regex and VIES validated (if available)
+vat.exists? # True if VIES available and VATIN exists
+```
+
+`valid?` will be your goto method for quick verification. If VIES is currently available, you'll get a response hash:
+
+```ruby
+{
+  :country_code => "GB",
+  :vat_number => "333289454",
+  :request_date => Date.today,
+  :valid => true,
+  :name => "BRITISH BROADCASTING CORPORATION",
+  :address => "FAO ALEX FITZPATRICK\nBBC GROUP VAT MANAGER\nTHE LIGHT HOUSE (1ST FLOOR)\nMEDIA VILLAGE, 201 WOOD LANE\nLONDON\nW127TQ"
+}
+```
+
+If you'd like to expose that info, go ahead and use `exists?`:
+
+```ruby
+if vat.exists?
+  puts vat.response.name
+  puts vat.response.address
+end
+```
+
 ## Examples
 
 VIES is available, the VAT is formatted correctly, and the VAT is registered to a business:
