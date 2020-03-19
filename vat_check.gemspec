@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.homepage      = 'http://taxjar.com'
   s.required_ruby_version = '>= 2.1.6'
+  s.metadata      = { 'source_code_uri' => 'https://github.com/taxjar/vat_check' }
 
   s.add_runtime_dependency      'savon',    '~> 2.11',  '>= 2.11.0'
   s.add_development_dependency  'rspec',    '~> 3.4'
