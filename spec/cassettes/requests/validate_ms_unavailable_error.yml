@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl
+    uri: https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl
     body:
       encoding: UTF-8
       string: ''
@@ -160,7 +160,7 @@ http_interactions:
         name=\"checkVatPort\" binding=\"impl:checkVatBinding\">\n      <wsdlsoap:address
         location=\"http://ec.europa.eu/taxation_customs/vies/services/checkVatService\"/>\n
         \   </wsdl:port>\n  </wsdl:service>\n</wsdl:definitions>\n"
-    http_version: 
+    http_version:
   recorded_at: Tue, 12 Jan 2016 23:27:20 GMT
 - request:
     method: post
@@ -203,6 +203,6 @@ http_interactions:
     body:
       encoding: UTF-8
       string: <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"><soap:Body><soap:Fault><faultcode>soap:Server</faultcode><faultstring>MS_UNAVAILABLE</faultstring></soap:Fault></soap:Body></soap:Envelope>
-    http_version: 
+    http_version:
   recorded_at: Tue, 12 Jan 2016 23:27:21 GMT
 recorded_with: VCR 2.9.3
