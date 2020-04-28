@@ -1,8 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    addressable (2.7.0)
-      public_suffix (>= 2.0.2, < 5.0)
+    addressable (2.4.0)
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
@@ -10,12 +9,11 @@ GEM
     byebug (5.0.0)
       columnize (= 0.9.0)
     columnize (0.9.0)
-    crack (0.4.3)
+    crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     gyoku (1.3.1)
       builder (>= 2.1.2)
-    hashdiff (1.0.1)
     httpi (2.4.1)
       rack
     metaclass (0.0.4)
@@ -25,7 +23,6 @@ GEM
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     nori (2.6.0)
-    public_suffix (4.0.3)
     rack (1.6.4)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
@@ -39,7 +36,7 @@ GEM
     rspec-mocks (3.0.4)
       rspec-support (~> 3.0.0)
     rspec-support (3.0.4)
-    safe_yaml (1.0.5)
+    safe_yaml (1.0.4)
     savon (2.11.1)
       akami (~> 1.2)
       builder (>= 2.1.2)
@@ -52,10 +49,9 @@ GEM
     wasabi (3.5.0)
       httpi (~> 2.0)
       nokogiri (>= 1.4.2)
-    webmock (3.8.3)
+    webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
-      hashdiff (>= 0.4.0, < 2.0.0)
 
 PLATFORMS
   ruby
@@ -66,7 +62,7 @@ DEPENDENCIES
   rspec (~> 3.0.0)
   savon
   vcr (~> 2.9.3)
-  webmock (~> 3.8)
+  webmock (~> 1.21.0)
 
 BUNDLED WITH
-   1.17.2
+   1.10.6
