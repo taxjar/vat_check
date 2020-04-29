@@ -23,7 +23,7 @@ Or in your Gemfile:
 gem 'vat_check'
 ```
 
-**Note:** VatCheck requires Ruby 2.0 or greater.
+**Note:** VatCheck requires Ruby 2.3 or greater.
 
 ## Basic Usage
 
