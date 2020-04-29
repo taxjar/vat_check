@@ -1,3 +1,8 @@
+require 'vat_check/utility'
+require 'vat_check/format'
+require 'vat_check/requests'
+require 'vat_check/version'
+
 class VatCheck
   attr_reader :regex, :vies, :vies_available, :response
 
@@ -19,7 +24,3 @@ class VatCheck
     return @vies
   end
 end
-
-require 'vat_check/utility'
-require 'vat_check/format'
-require 'vat_check/requests'
