@@ -20,7 +20,7 @@ gem install vat_check
 Or in your Gemfile:
 
 ```
-gem 'vat_check'
+gem 'vat_check', '~> 1.0'
 ```
 
 **Note:** VatCheck requires Ruby 2.3 or greater.
