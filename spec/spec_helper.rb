@@ -1,5 +1,4 @@
 require 'rspec'
-require 'byebug'
 require 'vcr'
 
 require File.dirname(__FILE__) + '/../lib/vat_check.rb'
