@@ -3,7 +3,7 @@ require 'savon'
 class VatCheck
   module Request
     def self.lookup(vat)
-      client = Savon.client(wsdl: 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl', log: false, log_level: :debug, pretty_print_xml: false)
+      client = Savon.client(wsdl: 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl', follow_redirects: true, log: false, log_level: :debug, pretty_print_xml: false)
       country_code, vat_number = VatCheck::Utility.split(vat)
       begin
         response = client.call(:check_vat, message: {country_code: country_code, vat_number: vat_number}, message_tag: :checkVat)
