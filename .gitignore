@@ -1,0 +1,17 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+
+*.gem
+.env*
+.byebug_history
+.rspec_status
+.ruby-gemset
+.ruby-version
+
+Gemfile.lock
