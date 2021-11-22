@@ -23,4 +23,8 @@ class VatCheck
   def exists?
     return @vies
   end
+
+  def vies_available?
+    return @vies_available
+  end
 end
